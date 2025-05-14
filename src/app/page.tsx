@@ -74,14 +74,28 @@ export default function Home() {
     <div className="min-h-screen bg-slate-900">
       <div className="container min-h-svh">
         <header className="text-center py-12">
-          <h5 className="text-xs uppercase tracking-wide text-stone-50">subscription tracker</h5>
+          <h1 className="uppercase tracking-wide text-stone-50">My Subscriptions</h1>
           <h2 className="mb-4 mt-1 text-4xl font-bold tracking-tight text-stone-50">
             Manage your <span className="text-indigo-500">subscriptions</span>
           </h2>
-          <p className="mx-auto max-w-prose text-sm text-stone-50/80">
+          <p className="mx-auto max-w-prose text-sm text-white">
             Keep track of all your recurring expenses in one place. Add, monitor, and manage your subscriptions with ease.
           </p>
         </header>
+
+
+        <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 p-12">
+          <div className="left-0 top-0 md:sticky md:h-svh">
+            <SubscriptionForm onAdd={loadSubscriptions} />
+          </div>
+
+          <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
+            <SubscriptionList 
+              subscriptions={subscriptions} 
+              onDelete={loadSubscriptions} 
+            />
+          </ContainerScroll>
+        </div>
 
         <ContainerScroll className="min-h-[400vh] place-items-center space-y-8 p-12 text-center">
           {getStats().map((stat, index) => (
@@ -104,25 +118,6 @@ export default function Home() {
           ))}
         </ContainerScroll>
 
-        <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 p-12">
-          <div className="left-0 top-0 md:sticky md:h-svh md:py-12">
-            <h5 className="text-xs uppercase tracking-wide text-stone-50">add new</h5>
-            <h2 className="mb-6 mt-4 text-4xl font-bold tracking-tight text-stone-50">
-              Track your <span className="text-indigo-500">expenses</span>
-            </h2>
-            <p className="max-w-prose text-sm text-stone-50/80">
-              Add your subscriptions and keep track of your recurring payments. We'll help you stay on top of your expenses.
-            </p>
-            <SubscriptionForm onAdd={loadSubscriptions} />
-          </div>
-
-          <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
-            <SubscriptionList 
-              subscriptions={subscriptions} 
-              onDelete={loadSubscriptions} 
-            />
-          </ContainerScroll>
-        </div>
       </div>
     </div>
   );
