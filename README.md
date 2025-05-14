@@ -1,10 +1,10 @@
-# Subscription Tracker
+# SubsZero
 
 A modern web application to help you track and manage your recurring subscriptions. Built with Next.js and React.
 
 🔗 [Live Demo](https://subscriptions-alpha.vercel.app)
 
-![Subscription Tracker Screenshot](public/screen.png)
+![SubsZero Screenshot](public/screen.png)
 
 ## Features
 
@@ -65,4 +65,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-Made with ❤️ using Next.js
+Made with ❤️ by Drew123

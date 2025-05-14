@@ -6,6 +6,7 @@ import SubscriptionList from '../components/SubscriptionList';
 import { getSubscriptions } from '../utils/localStorage';
 import { Subscription } from '../types/subscription';
 import { ContainerScroll, CardSticky } from '../components/blocks/cards-stack';
+import Header from '../components/Header';
 
 export default function Home() {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -58,19 +59,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900">
       <div className="min-h-svh max-w-7xl mx-auto px-4">
-        <header className="text-center py-16 relative">
-          <div className="absolute inset-0"></div>
-          <div className="relative">
-            <h1 className="uppercase tracking-widest text-stone-400 text-sm font-medium mb-3">My Subscriptions</h1>
-            <h2 className="mb-6 text-5xl font-bold tracking-tight text-stone-50">
-              Manage your <span className="text-indigo-500 relative inline-block">subscriptions<span className="absolute -bottom-1 left-0 w-full h-[2px] bg-indigo-500/30"></span></span>
-            </h2>
-            <p className="mx-auto max-w-xl text-base text-stone-300 leading-relaxed">
-              Keep track of all your recurring expenses in one place. Add, monitor, and manage your subscriptions with ease.
-            </p>
-          </div>
-        </header>
-
+        <Header />
 
         <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 p-12">
           <div className="left-0 top-0 md:sticky md:h-svh">
