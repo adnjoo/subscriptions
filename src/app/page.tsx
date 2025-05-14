@@ -72,9 +72,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      <div className="min-h-svh">
+      <div className="min-h-svh max-w-7xl mx-auto px-4">
         <header className="text-center py-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/30 to-transparent"></div>
+          <div className="absolute inset-0"></div>
           <div className="relative">
             <h1 className="uppercase tracking-widest text-stone-400 text-sm font-medium mb-3">My Subscriptions</h1>
             <h2 className="mb-6 text-5xl font-bold tracking-tight text-stone-50">
