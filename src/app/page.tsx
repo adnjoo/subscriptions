@@ -72,15 +72,18 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      <div className="container min-h-svh">
-        <header className="text-center py-12">
-          <h1 className="uppercase tracking-wide text-stone-50">My Subscriptions</h1>
-          <h2 className="mb-4 mt-1 text-4xl font-bold tracking-tight text-stone-50">
-            Manage your <span className="text-indigo-500">subscriptions</span>
-          </h2>
-          <p className="mx-auto max-w-prose text-sm text-white">
-            Keep track of all your recurring expenses in one place. Add, monitor, and manage your subscriptions with ease.
-          </p>
+      <div className="min-h-svh">
+        <header className="text-center py-16 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/30 to-transparent"></div>
+          <div className="relative">
+            <h1 className="uppercase tracking-widest text-stone-400 text-sm font-medium mb-3">My Subscriptions</h1>
+            <h2 className="mb-6 text-5xl font-bold tracking-tight text-stone-50">
+              Manage your <span className="text-indigo-500 relative inline-block">subscriptions<span className="absolute -bottom-1 left-0 w-full h-[2px] bg-indigo-500/30"></span></span>
+            </h2>
+            <p className="mx-auto max-w-xl text-base text-stone-300 leading-relaxed">
+              Keep track of all your recurring expenses in one place. Add, monitor, and manage your subscriptions with ease.
+            </p>
+          </div>
         </header>
 
 
