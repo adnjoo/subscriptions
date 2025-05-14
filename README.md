@@ -2,7 +2,7 @@
 
 A modern web application to help you track and manage your recurring subscriptions. Built with Next.js and React.
 
-🔗 [Live Demo](https://subscriptions-alpha.vercel.app)
+🔗 [Live Demo](https://subszero.vercel.app)
 
 ![SubsZero Screenshot](public/screen.png)
 
