@@ -5,6 +5,7 @@ import SubscriptionForm from '../components/SubscriptionForm';
 import SubscriptionList from '../components/SubscriptionList';
 import { getSubscriptions } from '../utils/localStorage';
 import { Subscription } from '../types/subscription';
+import { ContainerScroll, CardSticky } from '../components/blocks/cards-stack';
 
 export default function Home() {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -18,36 +19,109 @@ export default function Home() {
     loadSubscriptions();
   }, []);
 
-  const getTotalAmount = (cycle: 'monthly' | 'yearly') => {
-    return subscriptions
-      .filter(sub => sub.billingCycle === cycle)
-      .reduce((acc, sub) => acc + sub.amount, 0)
-      .toFixed(2);
+  const getStats = () => {
+    const monthlyTotal = subscriptions
+      .filter(sub => sub.billingCycle === 'monthly')
+      .reduce((acc, sub) => acc + sub.amount, 0);
+    
+    const yearlyTotal = subscriptions
+      .filter(sub => sub.billingCycle === 'yearly')
+      .reduce((acc, sub) => acc + sub.amount, 0);
+    
+    const totalSubscriptions = subscriptions.length;
+    
+    const nextPayment = subscriptions.length > 0 
+      ? subscriptions.reduce((earliest, sub) => {
+          return new Date(sub.nextBillingDate) < new Date(earliest.nextBillingDate) 
+            ? sub 
+            : earliest;
+        }).nextBillingDate
+      : null;
+
+    return [
+      {
+        id: 'stat-1',
+        title: 'Monthly Total (USD)',
+        value: `$${monthlyTotal.toFixed(2)}`,
+        description: 'Monthly subscriptions',
+        bg: 'rgb(58,148,118)'
+      },
+      {
+        id: 'stat-2',
+        title: 'Yearly Total (USD)',
+        value: `$${yearlyTotal.toFixed(2)}`,
+        description: 'Yearly subscriptions',
+        bg: 'rgb(195,97,158)'
+      },
+      {
+        id: 'stat-3',
+        title: 'Total Subscriptions',
+        value: totalSubscriptions.toString(),
+        description: 'Active subscriptions',
+        bg: 'rgb(202,128,53)'
+      },
+      {
+        id: 'stat-4',
+        title: 'Next Payment',
+        value: nextPayment ? new Date(nextPayment).toLocaleDateString() : '-',
+        description: 'Upcoming bill',
+        bg: 'rgb(135,95,195)'
+      }
+    ];
   };
 
   return (
-    <div className="min-h-screen p-4 sm:p-8 max-w-4xl mx-auto">
-      <header className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">Subscription Tracker</h1>
-        <p className="text-black/60 dark:text-white/60">Keep track of your recurring expenses</p>
-      </header>
+    <div className="min-h-screen bg-slate-900">
+      <div className="min-h-svh max-w-7xl mx-auto px-4">
+        <header className="text-center py-16 relative">
+          <div className="absolute inset-0"></div>
+          <div className="relative">
+            <h1 className="uppercase tracking-widest text-stone-400 text-sm font-medium mb-3">My Subscriptions</h1>
+            <h2 className="mb-6 text-5xl font-bold tracking-tight text-stone-50">
+              Manage your <span className="text-indigo-500 relative inline-block">subscriptions<span className="absolute -bottom-1 left-0 w-full h-[2px] bg-indigo-500/30"></span></span>
+            </h2>
+            <p className="mx-auto max-w-xl text-base text-stone-300 leading-relaxed">
+              Keep track of all your recurring expenses in one place. Add, monitor, and manage your subscriptions with ease.
+            </p>
+          </div>
+        </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 mb-8">
-        <div className="bg-white dark:bg-black/20 rounded-lg p-6">
-          <h3 className="text-sm mb-1 text-black/60 dark:text-white/60">Monthly Total</h3>
-          <p className="text-2xl font-bold">${getTotalAmount('monthly')} USD</p>
+
+        <div className="grid md:grid-cols-2 md:gap-8 xl:gap-12 p-12">
+          <div className="left-0 top-0 md:sticky md:h-svh">
+            <SubscriptionForm onAdd={loadSubscriptions} />
+          </div>
+
+          <ContainerScroll className="min-h-[400vh] space-y-8 py-12">
+            <SubscriptionList 
+              subscriptions={subscriptions} 
+              onDelete={loadSubscriptions} 
+            />
+          </ContainerScroll>
         </div>
-        <div className="bg-white dark:bg-black/20 rounded-lg p-6">
-          <h3 className="text-sm mb-1 text-black/60 dark:text-white/60">Yearly Total</h3>
-          <p className="text-2xl font-bold">${getTotalAmount('yearly')} USD</p>
-        </div>
+
+        <ContainerScroll className="min-h-[400vh] place-items-center space-y-8 p-12 text-center">
+          {getStats().map((stat, index) => (
+            <CardSticky
+              key={stat.id}
+              incrementY={20}
+              index={index + 2}
+              className="flex h-72 w-[420px] flex-col place-content-center justify-evenly rounded-2xl border border-current p-8 shadow-md text-stone-50"
+              style={{ rotate: index + 2, background: stat.bg }}
+            >
+              <h1 className="text-left text-6xl font-semibold opacity-80">
+                {stat.value}
+              </h1>
+              <div className="place-items-end text-right">
+                <h3 className="max-w-[15ch] text-wrap text-4xl font-semibold capitalize tracking-tight">
+                  {stat.description}
+                </h3>
+              </div>
+            </CardSticky>
+          ))}
+        </ContainerScroll>
+
       </div>
-
-      <SubscriptionForm onAdd={loadSubscriptions} />
-      <SubscriptionList 
-        subscriptions={subscriptions} 
-        onDelete={loadSubscriptions} 
-      />
     </div>
   );
 }
