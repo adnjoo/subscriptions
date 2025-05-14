@@ -26,46 +26,31 @@ export default function Home() {
     
     const yearlyTotal = subscriptions
       .filter(sub => sub.billingCycle === 'yearly')
-      .reduce((acc, sub) => acc + sub.amount, 0);
+      .reduce((acc, sub) => acc + sub.amount, 0) + (monthlyTotal * 12);
     
     const totalSubscriptions = subscriptions.length;
-    
-    const nextPayment = subscriptions.length > 0 
-      ? subscriptions.reduce((earliest, sub) => {
-          return new Date(sub.nextBillingDate) < new Date(earliest.nextBillingDate) 
-            ? sub 
-            : earliest;
-        }).nextBillingDate
-      : null;
 
     return [
       {
         id: 'stat-1',
-        title: 'Monthly Total (USD)',
+        title: 'Monthly Total',
         value: `$${monthlyTotal.toFixed(2)}`,
         description: 'Monthly subscriptions',
-        bg: 'rgb(58,148,118)'
+        gradient: 'from-emerald-500/20 to-emerald-500/5'
       },
       {
         id: 'stat-2',
-        title: 'Yearly Total (USD)',
+        title: 'Annual Total',
         value: `$${yearlyTotal.toFixed(2)}`,
-        description: 'Yearly subscriptions',
-        bg: 'rgb(195,97,158)'
+        description: 'Total yearly cost',
+        gradient: 'from-fuchsia-500/20 to-fuchsia-500/5'
       },
       {
         id: 'stat-3',
         title: 'Total Subscriptions',
         value: totalSubscriptions.toString(),
         description: 'Active subscriptions',
-        bg: 'rgb(202,128,53)'
-      },
-      {
-        id: 'stat-4',
-        title: 'Next Payment',
-        value: nextPayment ? new Date(nextPayment).toLocaleDateString() : '-',
-        description: 'Upcoming bill',
-        bg: 'rgb(135,95,195)'
+        gradient: 'from-amber-500/20 to-amber-500/5'
       }
     ];
   };
@@ -106,21 +91,39 @@ export default function Home() {
               key={stat.id}
               incrementY={20}
               index={index + 2}
-              className="flex h-72 w-[420px] flex-col place-content-center justify-evenly rounded-2xl border border-current p-8 shadow-md text-stone-50"
-              style={{ rotate: index + 2, background: stat.bg }}
+              className="flex h-72 w-[420px] flex-col place-content-center justify-evenly rounded-2xl border border-white/5 p-8 shadow-xl text-stone-50 bg-gradient-to-br"
+              style={{ 
+                rotate: `${(index + 1) * 2}deg`,
+                background: `linear-gradient(to bottom right, rgb(30, 41, 59), rgb(15, 23, 42))`,
+              }}
             >
-              <h1 className="text-left text-6xl font-semibold opacity-80">
-                {stat.value}
-              </h1>
-              <div className="place-items-end text-right">
-                <h3 className="max-w-[15ch] text-wrap text-4xl font-semibold capitalize tracking-tight">
-                  {stat.description}
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${stat.gradient}`} style={{ opacity: 0.8 }} />
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium text-stone-300 uppercase tracking-widest">
+                  {stat.title}
                 </h3>
+                <p className="text-5xl font-bold tracking-tight">
+                  {stat.value}
+                </p>
+                <p className="text-sm text-stone-400">
+                  {stat.description}
+                </p>
               </div>
             </CardSticky>
           ))}
         </ContainerScroll>
 
+        <footer className="py-8 text-center text-sm text-stone-400">
+          Made with <span className="text-red-500">❤️</span> by{' '}
+          <a 
+            href="https://github.com/adnjoo/subscriptions" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-indigo-400 hover:text-indigo-300 transition-colors"
+          >
+            @adnjoo
+          </a>
+        </footer>
       </div>
     </div>
   );
