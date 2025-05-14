@@ -3,6 +3,7 @@
 import { Subscription } from '../types/subscription';
 import { deleteSubscription } from '../utils/localStorage';
 import { ContainerScroll, CardSticky } from './blocks/cards-stack';
+import { getSubscriptionIcon } from '../utils/subscriptionIcons';
 
 export default function SubscriptionList({ 
   subscriptions,
@@ -51,9 +52,23 @@ export default function SubscriptionList({
               incrementZ={5}
             >
               <div className="flex items-center justify-between gap-4">
-                <h2 className="text-2xl font-bold tracking-tighter text-stone-50">
-                  {sub.name}
-                </h2>
+                <div className="flex items-center gap-3">
+                  {(() => {
+                    const Icon = getSubscriptionIcon(sub.name);
+                    return Icon ? (
+                      <Icon className="w-8 h-8 text-stone-50/80" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                        <span className="text-lg font-semibold text-stone-50/80">
+                          {sub.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    );
+                  })()}
+                  <h2 className="text-2xl font-bold tracking-tighter text-stone-50 capitalize">
+                    {sub.name}
+                  </h2>
+                </div>
                 <button
                   onClick={() => handleDelete(sub.id)}
                   className="text-stone-50/40 hover:text-red-500"
