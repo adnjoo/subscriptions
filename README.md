@@ -4,7 +4,7 @@ A modern web application to help you track and manage your recurring subscriptio
 
 🔗 [Live Demo](https://subscriptions-alpha.vercel.app)
 
-![Subscription Tracker Screenshot](public/screenshot.png)
+![Subscription Tracker Screenshot](public/screen.png)
 
 ## Features
 
@@ -64,8 +64,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
-
-- [@adnjoo](https://github.com/adnjoo)
 
 Made with ❤️ using Next.js
