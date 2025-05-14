@@ -13,11 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Subscriptions",
+  title: "SubsZero",
   description: "Track and manage your recurring subscriptions with ease. Calculate monthly and annual costs, auto-detect popular services, and keep your finances organized.",
   keywords: "subscription tracker, subscription management, recurring payments, financial tracking, expense manager",
-  authors: [{ name: "Drew Njoo", url: "https://github.com/adnjoo" }],
-  creator: "Drew Njoo",
+  authors: [{ name: "Drew123", url: "https://github.com/adnjoo" }],
+  creator: "Drew123",
   icons: {
     icon: [
       {
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Subscription Tracker",
+    title: "SubsZero",
     description: "Track and manage your recurring subscriptions with ease",
     url: "https://subscriptions-alpha.vercel.app",
-    siteName: "Subscription Tracker",
+    siteName: "SubsZero",
     type: "website",
     images: [{ url: "/icon.png" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Subscription Tracker",
+    title: "SubsZero",
     description: "Track and manage your recurring subscriptions with ease",
     creator: "@adnjoo",
     images: [{ url: "/icon.png" }],

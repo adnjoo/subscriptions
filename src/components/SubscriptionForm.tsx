@@ -32,7 +32,7 @@ export default function SubscriptionForm({ onAdd }: { onAdd: () => void }) {
   return (
     <div className="mt-8 rounded-2xl border border-indigo-500/20 p-8 shadow-md backdrop-blur-md bg-indigo-950/50">
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2 text-white">Add Subscription</h2>
+        <h2 className="text-2xl font-semibold mb-2 text-white">Add to SubsZero</h2>
         <p className="text-sm text-white">
           Track your recurring expenses by adding a new subscription
         </p>
