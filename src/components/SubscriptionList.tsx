@@ -2,6 +2,7 @@
 
 import { Subscription } from '../types/subscription';
 import { deleteSubscription } from '../utils/localStorage';
+import { ContainerScroll, CardSticky } from './blocks/cards-stack';
 
 export default function SubscriptionList({ 
   subscriptions,
@@ -23,26 +24,39 @@ export default function SubscriptionList({
     });
   };
 
+  const getRandomColor = (index: number) => {
+    const colors = [
+      'rgb(58,148,118)',
+      'rgb(195,97,158)',
+      'rgb(202,128,53)',
+      'rgb(135,95,195)'
+    ];
+    return colors[index % colors.length];
+  };
+
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Your Subscriptions</h2>
-      
+    <>
       {subscriptions.length === 0 ? (
-        <div className="bg-white dark:bg-black/20 rounded-lg p-6 text-center">
-          <p className="text-black/60 dark:text-white/60">No subscriptions yet. Add one above!</p>
+        <div className="text-center text-stone-50/80">
+          <p>No subscriptions yet. Add one to get started!</p>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {subscriptions.map((sub) => (
-            <div
+        <>
+          {subscriptions.map((sub, index) => (
+            <CardSticky
               key={sub.id}
-              className="bg-white dark:bg-black/20 rounded-lg p-6 hover:ring-1 hover:ring-black/10 dark:hover:ring-white/10 transition-all"
+              index={index + 2}
+              className="rounded-2xl border border-indigo-500/20 p-8 shadow-md backdrop-blur-md bg-indigo-950/50"
+              incrementY={60}
+              incrementZ={5}
             >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-lg font-medium">{sub.name}</h3>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-2xl font-bold tracking-tighter text-stone-50">
+                  {sub.name}
+                </h2>
                 <button
                   onClick={() => handleDelete(sub.id)}
-                  className="text-black/40 dark:text-white/40 hover:text-red-500 dark:hover:text-red-400"
+                  className="text-stone-50/40 hover:text-red-500"
                   aria-label="Delete subscription"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -50,20 +64,25 @@ export default function SubscriptionList({
                   </svg>
                 </button>
               </div>
-              
-              <div className="space-y-2">
-                <p className="text-2xl font-semibold">
-                  {sub.amount.toFixed(2)} {sub.currency}
+
+              <div className="mt-6 space-y-4">
+                <p className="text-4xl font-bold text-indigo-500">
+                  ${sub.amount.toFixed(2)}
                 </p>
-                <div className="text-sm text-black/60 dark:text-white/60">
+                <div className="text-sm text-stone-50/60">
                   <p>Bills {sub.billingCycle}</p>
                   <p>Next payment: {formatDate(sub.nextBillingDate)}</p>
                 </div>
+                <div className="flex gap-2">
+                  <span className="text-xs px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300">
+                    {sub.billingCycle}
+                  </span>
+                </div>
               </div>
-            </div>
+            </CardSticky>
           ))}
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 } 

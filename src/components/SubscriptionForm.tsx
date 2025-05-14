@@ -8,7 +8,6 @@ export default function SubscriptionForm({ onAdd }: { onAdd: () => void }) {
   const [formData, setFormData] = useState({
     name: '',
     amount: '',
-    currency: 'USD',
     billingCycle: 'monthly' as 'monthly' | 'yearly',
     nextBillingDate: new Date().toISOString().split('T')[0]
   });
@@ -25,64 +24,54 @@ export default function SubscriptionForm({ onAdd }: { onAdd: () => void }) {
     setFormData({
       name: '',
       amount: '',
-      currency: 'USD',
       billingCycle: 'monthly',
       nextBillingDate: new Date().toISOString().split('T')[0]
     });
   };
 
   return (
-    <div className="bg-white dark:bg-black/20 rounded-lg p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4">Add Subscription</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="mt-8 rounded-2xl border border-indigo-500/20 p-8 shadow-md backdrop-blur-md bg-indigo-950/50">
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold mb-2">Add Subscription</h2>
+        <p className="text-sm text-black/60 dark:text-white/60">
+          Track your recurring expenses by adding a new subscription
+        </p>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm mb-1">Name</label>
+          <label className="block text-sm font-medium mb-2 text-stone-50">Name</label>
           <input
             type="text"
             required
             value={formData.name}
             onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-transparent"
+            className="w-full px-4 py-2 rounded-lg border border-indigo-500/20 bg-indigo-950/50 text-stone-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Netflix, Spotify, etc."
           />
         </div>
 
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <label className="block text-sm mb-1">Amount</label>
-            <input
-              type="number"
-              required
-              step="0.01"
-              min="0"
-              value={formData.amount}
-              onChange={(e) => setFormData({...formData, amount: e.target.value})}
-              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-transparent"
-              placeholder="0.00"
-            />
-          </div>
-
-          <div className="w-1/3">
-            <label className="block text-sm mb-1">Currency</label>
-            <select
-              value={formData.currency}
-              onChange={(e) => setFormData({...formData, currency: e.target.value})}
-              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-transparent"
-            >
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-            </select>
-          </div>
+        <div>
+          <label className="block text-sm font-medium mb-2 text-stone-50">Amount (USD)</label>
+          <input
+            type="number"
+            required
+            step="0.01"
+            min="0"
+            value={formData.amount}
+            onChange={(e) => setFormData({...formData, amount: e.target.value})}
+            className="w-full px-4 py-2 rounded-lg border border-indigo-500/20 bg-indigo-950/50 text-stone-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="0.00"
+          />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm mb-1">Billing Cycle</label>
+            <label className="block text-sm font-medium mb-2 text-stone-50">Billing Cycle</label>
             <select
               value={formData.billingCycle}
               onChange={(e) => setFormData({...formData, billingCycle: e.target.value as 'monthly' | 'yearly'})}
-              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-transparent"
+              className="w-full px-4 py-2 rounded-lg border border-indigo-500/20 bg-indigo-950/50 text-stone-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
@@ -90,20 +79,20 @@ export default function SubscriptionForm({ onAdd }: { onAdd: () => void }) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Next Billing Date</label>
+            <label className="block text-sm font-medium mb-2 text-stone-50">Next Billing Date</label>
             <input
               type="date"
               required
               value={formData.nextBillingDate}
               onChange={(e) => setFormData({...formData, nextBillingDate: e.target.value})}
-              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-transparent"
+              className="w-full px-4 py-2 rounded-lg border border-indigo-500/20 bg-indigo-950/50 text-stone-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full mt-2 px-4 py-2 bg-foreground text-background rounded hover:opacity-90 transition-opacity"
+          className="w-full mt-4 px-6 py-3 bg-indigo-500 text-stone-50 rounded-lg font-medium hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
         >
           Add Subscription
         </button>
